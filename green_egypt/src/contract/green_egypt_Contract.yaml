@@ -1,0 +1,115 @@
+openapi: 3.0.4
+info:
+  title: Green Egypt Contract - OpenAPI 3.0
+  description: |-
+    This Contract is the continous version of Green Egypt Backend.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/green_egypt/api/v1
+tags:
+  - name: Register
+    description: Contain all registeration endpoints details
+  - name: Login
+    description: Contain all logging process endpoints details.
+  - name: home
+    description: all details related to home page
+paths:
+  /register:
+    post:
+      tags:
+        - Register
+      summary: Register new user
+      description: |
+        Register a new user in the system.
+
+        **Sample Request:**
+        ```bash
+        curl --location --request POST 'http://localhost:8080/green_egypt/api/v1/register' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+          "firstName": "John",
+          "lastName": "Doe",
+          "email": "john.doe@example.com",
+          "password": "SecurePass123!",
+          "mobileNumber": "+2012345678901",
+          "userType": "CUSTOMER"
+        }'
+        ```
+
+      operationId: register
+      requestBody:
+        description: Register new user with a couple of required fields
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: User Registered Successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Url not found
+        '409':
+          description: User Already Registered
+        '422':
+          description: Validation exception
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+        - userType
+      properties:
+        firstName:
+          type: string
+          description: The user's first name
+          example: John
+          minLength: 1
+          maxLength: 50
+        lastName:
+          type: string
+          description: The user's last name
+          example: Doe
+          minLength: 1
+          maxLength: 50
+        email:
+          type: string
+          description: The user's email address
+          format: email
+          example: john.doe@example.com
+          maxLength: 255
+        password:
+          type: string
+          description: The user's password
+          format: password
+          example: "Str0ngP@ssw0rd"
+          minLength: 8
+          maxLength: 100
+        mobileNumber:
+          type: string
+          description: The user's mobile phone number (Egyptian format)
+          example: "+201234567890"
+          pattern: "^\\+201[0-9]{9}$"  # Egyptian mobile numbers (+201 followed by 9 digits)
+          nullable: true
+        userType:
+          type: string
+          description: The type of user
+          enum:
+            - Default
+            - Admin
+          example: CUSTOMER
+      additionalProperties: false
+
+
+
+
+
