@@ -7,9 +7,9 @@ info:
 servers:
   - url: http://localhost:8080/green_egypt/api/v1
 tags:
-  - name: Register
+  - name: RegisterController
     description: Contain all registeration endpoints details
-  - name: Login
+  - name: LoginConroller
     description: Contain all logging process endpoints details.
   - name: home
     description: all details related to home page
@@ -17,8 +17,8 @@ paths:
   /register:
     post:
       tags:
-        - Register
-      summary: Register new user
+        - RegisterController
+      summary: RegisterController new user
       description: |
         Register a new user in the system.
 
@@ -38,7 +38,7 @@ paths:
 
       operationId: register
       requestBody:
-        description: Register new user with a couple of required fields
+        description: RegisterController new user with a couple of required fields
         content:
           application/json:
             schema:
