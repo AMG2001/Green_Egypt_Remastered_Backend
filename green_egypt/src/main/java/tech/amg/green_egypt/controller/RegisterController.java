@@ -12,8 +12,8 @@ import tech.amg.green_egypt.domain.model.RegisteredUser;
 @RequestMapping("/register")
 public class RegisterController {
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public RegisteredUser register(@ModelAttribute RegisteredUser registeredUser) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public RegisteredUser register(@RequestBody RegisteredUser registeredUser) {
         System.out.println("registered User : " + registeredUser.toString());
         return registeredUser;
     }
