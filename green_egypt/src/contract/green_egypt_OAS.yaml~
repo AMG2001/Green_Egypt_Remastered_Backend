@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Green Egypt API - OpenAPI 3.0
+  description: |-
+    this OAS describe the whole endpoints that used within Green Egypt system .
+  version: '1.0'
+
+servers:
+  - url: http://localhost/GE/
+
+tags:
+  - name: EcoSystemInfo
+    description: Everything about your Pets
+
+paths:
+  /ecoSystemInfo:
+    get:
+      tags:
+        - EcoSystemInfo
+      summary: get the whole eco system info .
+      description: get all eco system info .
+      operationId: getEcoSystemInfo
+      parameters:
+        - in: query
+          name: limit
+          description: specify the number of tips to be returned.
+          schema:
+            type: integer
+            format: int32
+          example: 2
+        - in: query
+          name: contents
+          description: specify the returned tips by providing content the content of it inside the query param.
+          style: form
+          explode: false
+          example: [ tip1, tip2 ]
+          schema:
+            type: array
+            items:
+              type: string
+            maxItems: 2
+        - in: query
+          name: imgEnum
+          description: enums represent the whole images that are provided.
+          schema:
+            
+
+      responses:
+        '200':
+          description: get all eco system info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EcoSystemInfo'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GreenEgyptError'
+        '404':
+          description: Pet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GreenEgyptError'
+        '500':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GreenEgyptError'
+
+
+components:
+  schemas:
+    EcoSystemInfo:
+      title: EcoSystemInfo
+      type: object
+      properties:
+        content:
+          type: string
+          description: provide the content of the EcoSystemInfo.
+        imageUrl:
+          type: string
+          description: url if the info icon.
+
+    ################ Defined errors .
+    GreenEgyptError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: contain the content of the error.
+        reason:
+          type: string
+          description: define the reason of the error .
+        errorCode:
+          type: string
+          description: A unique error code identifying the issue.
+        errorType:
+          type: string
+          description: A human-readable error message.
+        issuer:
+          type: string
+          description: Additional details about the error.
+    ############## Enums .
+    ImageEnum:
+      type: string
+      enum:
+        - img1
+        - img2
+        - img3
+
