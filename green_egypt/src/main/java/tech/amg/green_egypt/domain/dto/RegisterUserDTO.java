@@ -1,14 +1,13 @@
-package tech.amg.green_egypt.domain.model;
+package tech.amg.green_egypt.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.springframework.stereotype.Component;
+import lombok.Data;
 import tech.amg.green_egypt.domain.enums.UserType;
 
 @Data
-public class RegisteredUser{
+public class RegisterUserDTO{
     @NotNull
     private String firstName;
     @NotNull
@@ -24,6 +23,7 @@ public class RegisteredUser{
     @JsonProperty("userType")  // Make sure Jackson knows the property name
     private UserType userType;
 
-    public RegisteredUser() {
+    public RegisterUserDTO() {
+
     }
 }

@@ -1,20 +1,26 @@
 package tech.amg.green_egypt.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import tech.amg.green_egypt.domain.model.RegisteredUser;
+import tech.amg.green_egypt.domain.dto.RegisterUserDTO;
+import tech.amg.green_egypt.service.RegisterService;
 
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RegisteredUser register(@RequestBody RegisteredUser registeredUser) {
-        System.out.println("registered User : " + registeredUser.toString());
-        return registeredUser;
+    private final RegisterService registerService;
+    
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
     }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> register(@RequestBody RegisterUserDTO registeredUser) {
+            registerService.registerUser(registeredUser);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
 }
