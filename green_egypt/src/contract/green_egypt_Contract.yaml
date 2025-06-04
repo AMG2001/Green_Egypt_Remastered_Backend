@@ -9,7 +9,7 @@ servers:
 tags:
   - name: RegisterController
     description: Contain all registeration endpoints details
-  - name: LoginConroller
+  - name: LoginController
     description: Contain all logging process endpoints details.
   - name: home
     description: all details related to home page
