@@ -20,9 +20,9 @@ public class LoginService {
     }
 
     public User login(LoginUserDto loginUserDto) {
-        User user = userRepo.getUserByEmail(loginUserDto.getEmail())
-        .orElseThrow(() -> new UserNotFoundException());
-        if (!passwordEncoder.matches(loginUserDto.getPassword(), user.getPassword())) {
+        User user = userRepo.getUserByEmail(loginUserDto.email())
+        .orElseThrow(UserNotFoundException::new);
+        if (!passwordEncoder.matches(loginUserDto.password(), user.password())) {
             throw new InvalidCredintialsException();
         }
         return user;
